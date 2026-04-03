@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "version": 1,
+    "createdAt": "2026-03-27T02:03:38.305Z"
+  },
+  "users": [
+    {
+      "id": "1e10df42-19b7-4158-8f7a-9d769499e942",
+      "nome": "Administrador",
+      "username": "admin",
+      "role": "admin",
+      "passwordHash": "46a5491285e95c393ef0156e42ca7aaed6127bd0f46b81cea2dacb2054b0beeb2ee09d7eac6d3d79f2e2575b0bcf49d5e4fdf51bacdb3d63feddc6d5635d506d",
+      "passwordSalt": "07381a74bae5880260df3403fe8b259f",
+      "createdAt": "2026-03-27T02:03:38.306Z",
+      "permissions": {
+        "servicos": {
+          "view": true,
+          "edit": true
+        },
+        "visitas": {
+          "view": true,
+          "edit": true
+        },
+        "orcamento": {
+          "view": true,
+          "edit": true
+        },
+        "financeiro": {
+          "view": true,
+          "edit": true
+        },
+        "estoque": {
+          "view": true,
+          "edit": true
+        },
+        "relatorio": {
+          "view": true,
+          "edit": true
+        },
+        "clientes": {
+          "view": true,
+          "edit": true
+        },
+        "usuarios": {
+          "view": true,
+          "edit": true
+        }
+      }
+    }
+  ],
+  "clientes": [
+    {
+      "id": "98bb2ffa-4c4e-4140-bc45-fcb9ae206207",
+      "nome": "SANAN DIOGO",
+      "responsavel": "SAN",
+      "email": "diogosanan@gmail.com",
+      "telefone": "66996871285",
+      "endereco": "Rua Cristo Rei",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    },
+    {
+      "id": "de6129d3-c70e-4225-a9ee-07a2415f5b31",
+      "nome": "Tech Solutions LTDA",
+      "responsavel": "Carlos Silva",
+      "email": "contato@techsolutions.com.br",
+      "telefone": "(11) 98765-4321",
+      "endereco": "Rua da Tecnologia, 100 - Sao Paulo/SP",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    }
+  ],
+  "servicos": [
+    {
+      "id": "c8f1427b-9a00-41f4-b349-4676c364dd71",
+      "clienteId": "98bb2ffa-4c4e-4140-bc45-fcb9ae206207",
+      "cliente": "SANAN DIOGO",
+      "tipo": "Formatacao",
+      "status": "Concluido",
+      "observacoes": "Equipamento entregue e validado.",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    },
+    {
+      "id": "862e4e47-7075-483f-a527-21f89cfe5509",
+      "clienteId": "de6129d3-c70e-4225-a9ee-07a2415f5b31",
+      "cliente": "Tech Solutions LTDA",
+      "tipo": "Visita tecnica",
+      "status": "Pendente",
+      "observacoes": "Ambiente aguardando janela de manutencao.",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    }
+  ],
+  "visitas": [
+    {
+      "id": "0ddd6629-01f5-4d49-8a75-4544109a46bc",
+      "clienteId": "de6129d3-c70e-4225-a9ee-07a2415f5b31",
+      "cliente": "Tech Solutions LTDA",
+      "servico": "Manutencao Preventiva",
+      "data": "2026-03-27",
+      "observacoes": "Verificacao programada da infraestrutura.",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    }
+  ],
+  "orcamentos": [],
+  "financeiro": [],
+  "estoque": []
+}
