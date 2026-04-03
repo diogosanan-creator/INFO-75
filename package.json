@@ -1,0 +1,12 @@
+{
+  "name": "site-servicos",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Gestão local de serviços da INFO75 com backend Node e preparação para produção",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "start:prod": "set NODE_ENV=production&& node server.js",
+    "check": "node --check app.js && node --check server.js"
+  }
+}
