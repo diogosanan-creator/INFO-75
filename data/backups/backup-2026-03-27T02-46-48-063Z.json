@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "version": 1,
+    "createdAt": "2026-03-27T02:03:38.305Z"
+  },
+  "users": [
+    {
+      "id": "1e10df42-19b7-4158-8f7a-9d769499e942",
+      "nome": "Administrador",
+      "username": "admin",
+      "role": "admin",
+      "passwordHash": "1633c9f8da09d6965b28dcfe47ff7b484d75f2dbead383662f653a8b057131d2fae82e39deb600b670ab9ac26a4da81a3d94cfbc1f21b3fb70c4010769c2e92c",
+      "passwordSalt": "998484701c79175bbeb38970a79b3d49",
+      "createdAt": "2026-03-27T02:03:38.306Z",
+      "permissions": {
+        "servicos": {
+          "view": true,
+          "edit": true
+        },
+        "visitas": {
+          "view": true,
+          "edit": true
+        },
+        "orcamento": {
+          "view": true,
+          "edit": true
+        },
+        "financeiro": {
+          "view": true,
+          "edit": true
+        },
+        "estoque": {
+          "view": true,
+          "edit": true
+        },
+        "relatorio": {
+          "view": true,
+          "edit": true
+        },
+        "clientes": {
+          "view": true,
+          "edit": true
+        },
+        "usuarios": {
+          "view": true,
+          "edit": true
+        }
+      },
+      "updatedAt": "2026-03-27T02:40:48.906Z"
+    }
+  ],
+  "clientes": [
+    {
+      "id": "1fb2998c-f762-4b8b-b08d-67eb4e0f87b3",
+      "nome": "Cliente Busca QA 2",
+      "responsavel": "Teste 2",
+      "email": "qa2@example.com",
+      "telefone": "99999",
+      "endereco": "Rua Y",
+      "createdAt": "2026-03-27T02:46:48.054Z",
+      "updatedAt": "2026-03-27T02:46:48.059Z"
+    },
+    {
+      "id": "98bb2ffa-4c4e-4140-bc45-fcb9ae206207",
+      "nome": "SANAN DIOGO",
+      "responsavel": "SAN",
+      "email": "diogosanan@gmail.com",
+      "telefone": "66996871285",
+      "endereco": "Rua Cristo Rei",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    },
+    {
+      "id": "de6129d3-c70e-4225-a9ee-07a2415f5b31",
+      "nome": "Tech Solutions LTDA",
+      "responsavel": "Carlos Silva",
+      "email": "contato@techsolutions.com.br",
+      "telefone": "(11) 98765-4321",
+      "endereco": "Rua da Tecnologia, 100 - Sao Paulo/SP",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    }
+  ],
+  "servicos": [
+    {
+      "id": "c8f1427b-9a00-41f4-b349-4676c364dd71",
+      "clienteId": "98bb2ffa-4c4e-4140-bc45-fcb9ae206207",
+      "cliente": "SANAN DIOGO",
+      "tipo": "Formatacao",
+      "status": "Concluido",
+      "observacoes": "Equipamento entregue e validado.",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    },
+    {
+      "id": "862e4e47-7075-483f-a527-21f89cfe5509",
+      "clienteId": "de6129d3-c70e-4225-a9ee-07a2415f5b31",
+      "cliente": "Tech Solutions LTDA",
+      "tipo": "Visita tecnica",
+      "status": "Pendente",
+      "observacoes": "Ambiente aguardando janela de manutencao.",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    }
+  ],
+  "visitas": [
+    {
+      "id": "0ddd6629-01f5-4d49-8a75-4544109a46bc",
+      "clienteId": "de6129d3-c70e-4225-a9ee-07a2415f5b31",
+      "cliente": "Tech Solutions LTDA",
+      "servico": "Manutencao Preventiva",
+      "data": "2026-03-27",
+      "observacoes": "Verificacao programada da infraestrutura.",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    }
+  ],
+  "orcamentos": [],
+  "financeiro": [],
+  "estoque": []
+}

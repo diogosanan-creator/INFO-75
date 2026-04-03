@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "version": 1,
+    "createdAt": "2026-03-27T02:03:38.305Z",
+    "hardenedAt": "2026-04-03T03:24:24.535Z"
+  },
+  "users": [
+    {
+      "id": "61b9bdfa-6916-4994-a2bc-2cf01b866689",
+      "nome": "Ezequiel",
+      "username": "ezequiel",
+      "role": "tecnico",
+      "permissions": {
+        "servicos": {
+          "view": true,
+          "edit": true
+        },
+        "visitas": {
+          "view": true,
+          "edit": true
+        },
+        "orcamento": {
+          "view": true,
+          "edit": true
+        },
+        "financeiro": {
+          "view": false,
+          "edit": false
+        },
+        "estoque": {
+          "view": false,
+          "edit": false
+        },
+        "relatorio": {
+          "view": false,
+          "edit": false
+        },
+        "clientes": {
+          "view": true,
+          "edit": true
+        },
+        "usuarios": {
+          "view": false,
+          "edit": false
+        }
+      },
+      "passwordHash": "fd78d6e1032bbe4b64c47a302f55c168120e7627af63f7f8abc7a5911700485e06d44285ce7c6496cd5c93fe3e2ae46bc47051e10b67698105c5aeb319f688d5",
+      "passwordSalt": "0e3e30bed080e4aa1a83a416d0178630",
+      "createdAt": "2026-04-03T13:53:09.847Z"
+    },
+    {
+      "id": "0c8a6e25-d5fa-4857-81e8-dd924ab63a1e",
+      "nome": "Andre",
+      "username": "andre",
+      "role": "tecnico",
+      "permissions": {
+        "servicos": {
+          "view": true,
+          "edit": true
+        },
+        "visitas": {
+          "view": true,
+          "edit": true
+        },
+        "orcamento": {
+          "view": true,
+          "edit": true
+        },
+        "financeiro": {
+          "view": true,
+          "edit": true
+        },
+        "estoque": {
+          "view": true,
+          "edit": true
+        },
+        "relatorio": {
+          "view": true,
+          "edit": true
+        },
+        "clientes": {
+          "view": true,
+          "edit": true
+        },
+        "usuarios": {
+          "view": false,
+          "edit": false
+        }
+      },
+      "passwordHash": "7003af38d0103fae1b5ac28fb9200784595afb64f899db44158e832e6abbae9a9c317e8da0d0c962c053c9a18fc245742487016631826c47ba7636055da6979a",
+      "passwordSalt": "302cf0091ff1c5adb846ae391b086e35",
+      "createdAt": "2026-03-27T03:05:47.685Z",
+      "updatedAt": "2026-04-03T13:39:21.973Z"
+    },
+    {
+      "id": "1e10df42-19b7-4158-8f7a-9d769499e942",
+      "nome": "Administrador",
+      "username": "admin",
+      "role": "admin",
+      "passwordHash": "46a5491285e95c393ef0156e42ca7aaed6127bd0f46b81cea2dacb2054b0beeb2ee09d7eac6d3d79f2e2575b0bcf49d5e4fdf51bacdb3d63feddc6d5635d506d",
+      "passwordSalt": "07381a74bae5880260df3403fe8b259f",
+      "createdAt": "2026-03-27T02:03:38.306Z",
+      "permissions": {
+        "servicos": {
+          "view": true,
+          "edit": true
+        },
+        "visitas": {
+          "view": true,
+          "edit": true
+        },
+        "orcamento": {
+          "view": true,
+          "edit": true
+        },
+        "financeiro": {
+          "view": true,
+          "edit": true
+        },
+        "estoque": {
+          "view": true,
+          "edit": true
+        },
+        "relatorio": {
+          "view": true,
+          "edit": true
+        },
+        "clientes": {
+          "view": true,
+          "edit": true
+        },
+        "usuarios": {
+          "view": true,
+          "edit": true
+        }
+      }
+    }
+  ],
+  "clientes": [
+    {
+      "id": "98bb2ffa-4c4e-4140-bc45-fcb9ae206207",
+      "nome": "SANAN DIOGO",
+      "responsavel": "SAN",
+      "email": "diogosanan@gmail.com",
+      "telefone": "66996871285",
+      "endereco": "Rua Cristo Rei",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    },
+    {
+      "id": "de6129d3-c70e-4225-a9ee-07a2415f5b31",
+      "nome": "Tech Solutions LTDA",
+      "responsavel": "Carlos Silva",
+      "email": "contato@techsolutions.com.br",
+      "telefone": "(11) 98765-4321",
+      "endereco": "Rua da Tecnologia, 100 - Sao Paulo/SP",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    }
+  ],
+  "servicos": [
+    {
+      "id": "c8f1427b-9a00-41f4-b349-4676c364dd71",
+      "clienteId": "98bb2ffa-4c4e-4140-bc45-fcb9ae206207",
+      "cliente": "SANAN DIOGO",
+      "tipo": "Formatacao",
+      "status": "Concluido",
+      "observacoes": "Equipamento entregue e validado.",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    },
+    {
+      "id": "862e4e47-7075-483f-a527-21f89cfe5509",
+      "clienteId": "de6129d3-c70e-4225-a9ee-07a2415f5b31",
+      "cliente": "Tech Solutions LTDA",
+      "tipo": "Visita tecnica",
+      "status": "Pendente",
+      "observacoes": "Ambiente aguardando janela de manutencao.",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    }
+  ],
+  "visitas": [
+    {
+      "id": "0ddd6629-01f5-4d49-8a75-4544109a46bc",
+      "clienteId": "de6129d3-c70e-4225-a9ee-07a2415f5b31",
+      "cliente": "Tech Solutions LTDA",
+      "servico": "Manutencao Preventiva",
+      "data": "2026-03-27",
+      "observacoes": "Verificacao programada da infraestrutura.",
+      "createdAt": "2026-03-27T02:03:38.306Z"
+    }
+  ],
+  "orcamentos": [
+    {
+      "id": "f4feffec-37c2-4580-b8b4-19b6a7f555d3",
+      "clienteId": "98bb2ffa-4c4e-4140-bc45-fcb9ae206207",
+      "cliente": "SANAN DIOGO",
+      "endereco": "Rua Cristo Rei",
+      "telefone": "66996871285",
+      "numero": "1",
+      "status": "Pendente",
+      "data": "2026-03-28",
+      "validade": "",
+      "preparadoPor": "",
+      "tecnico": "sasn",
+      "ocNumero": "1",
+      "resumo": "",
+      "termos": "À vista",
+      "comentarios": "",
+      "itens": [
+        {
+          "id": "b3a444b4-6cae-42bd-9a63-b1f4f265d18d",
+          "descricao": "dsa",
+          "unidade": "un",
+          "quantidade": 12,
+          "valorUnitario": 122
+        }
+      ],
+      "subtotal": 1464,
+      "total": 1464,
+      "createdAt": "2026-03-28T18:50:00.584Z"
+    }
+  ],
+  "financeiro": [],
+  "estoque": []
+}
