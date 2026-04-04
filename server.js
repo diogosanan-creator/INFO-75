@@ -592,7 +592,7 @@ async function handleApi(request, response, pathname) {
     if (!requirePermission(session, response, "servicos", "edit")) return;
     try {
       const result = createCollectionItem("servicos", validateService(await readBody(request)));
-      audit({ action: "servicos_created", actorId: session.user.id, actor: session.user.username, targetId: result.after.id, snapshotAfter: result.after });
+      audit({ action: "servicos_created", actorId: session.user.id, actor: session.user.username, targetId: result.after.id, finalizadoPor: session.user.username, snapshotAfter: result.after });
       sendJson(response, 201, { item: result.after });
     } catch (error) {
       sendJson(response, 400, { error: error.message });
@@ -604,7 +604,7 @@ async function handleApi(request, response, pathname) {
     if (!requirePermission(session, response, "visitas", "edit")) return;
     try {
       const result = createCollectionItem("visitas", validateVisit(await readBody(request)));
-      audit({ action: "visitas_created", actorId: session.user.id, actor: session.user.username, targetId: result.after.id, snapshotAfter: result.after });
+      audit({ action: "visitas_created", actorId: session.user.id, actor: session.user.username, targetId: result.after.id, finalizadoPor: session.user.username, snapshotAfter: result.after });
       sendJson(response, 201, { item: result.after });
     } catch (error) {
       sendJson(response, 400, { error: error.message });
@@ -616,7 +616,7 @@ async function handleApi(request, response, pathname) {
     if (!requirePermission(session, response, "orcamento", "edit")) return;
     try {
       const result = createCollectionItem("orcamentos", validateBudget(await readBody(request)));
-      audit({ action: "orcamentos_created", actorId: session.user.id, actor: session.user.username, targetId: result.after.id, snapshotAfter: result.after });
+      audit({ action: "orcamentos_created", actorId: session.user.id, actor: session.user.username, targetId: result.after.id, finalizadoPor: session.user.username, snapshotAfter: result.after });
       sendJson(response, 201, { item: result.after });
     } catch (error) {
       sendJson(response, 400, { error: error.message });
@@ -694,7 +694,12 @@ async function handleApi(request, response, pathname) {
         syncClientRefs(id, result.after);
         saveDb(db);
       }
-      audit({ action: `${collectionName}_updated`, actorId: session.user.id, actor: session.user.username, targetId: id, snapshotBefore: collectionName === "users" ? sanitizeUser(result.before) : result.before, snapshotAfter: collectionName === "users" ? sanitizeUser(result.after) : result.after });
+      const afterStatus = result.after?.status ? String(result.after.status).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase() : "";
+      const isFinalizing = ["concluido", "aprovado"].includes(afterStatus);
+      const finalizadoPor = isFinalizing ? session.user.username : undefined;
+      const auditEntry = { action: `${collectionName}_updated`, actorId: session.user.id, actor: session.user.username, targetId: id, snapshotBefore: collectionName === "users" ? sanitizeUser(result.before) : result.before, snapshotAfter: collectionName === "users" ? sanitizeUser(result.after) : result.after };
+      if (finalizadoPor) auditEntry.finalizadoPor = finalizadoPor;
+      audit(auditEntry);
       sendJson(response, 200, { item: collectionName === "users" ? sanitizeUser(result.after) : result.after });
     } catch (error) {
       sendJson(response, 400, { error: error.message });

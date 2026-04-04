@@ -82,6 +82,9 @@
   auditPeriod: document.querySelector("#auditPeriod"),
   auditPdfButton: document.querySelector("#auditPdfButton"),
   auditSummary: document.querySelector("#auditSummary"),
+  auditServicosList: document.querySelector("#auditServicosList"),
+  auditVisitasList: document.querySelector("#auditVisitasList"),
+  auditOrcamentosList: document.querySelector("#auditOrcamentosList"),
   recordModal: document.querySelector("#recordModal"),
   modalTitle: document.querySelector("#modalTitle"),
   modalForm: document.querySelector("#modalForm"),
@@ -591,14 +594,55 @@ function filterAuditByPeriod(period = state.auditPeriod) {
   });
 }
 
+function renderAuditModuleList(container, items, emptyLabel) {
+  if (!container) return;
+  if (!items.length) {
+    container.innerHTML = `<div class="audit-empty">Nenhum registro no período.</div>`;
+    return;
+  }
+  container.innerHTML = items.map((item) => {
+    const when = item.timestamp ? new Date(item.timestamp).toLocaleString("pt-BR") : "-";
+    const action = item.action || "-";
+    const actor = esc(item.actor || item.username || "-");
+    const finalizadoPor = item.finalizadoPor ? `<span class="audit-finalizado">Finalizado por: <strong>${esc(item.finalizadoPor)}</strong></span>` : "";
+    const target = esc(item.targetId || "-");
+    const isFinalized = item.finalizadoPor != null;
+    return `<div class="audit-entry${isFinalized ? " audit-entry--finalized" : ""}"><div class="audit-entry-main"><span class="audit-action">${esc(action)}</span><span class="audit-meta">${esc(when)} &mdash; por <strong>${actor}</strong></span>${finalizadoPor}</div><span class="audit-target">${target}</span></div>`;
+  }).join("");
+}
+
 function renderAudit() {
   refs.adminToolsCard?.classList.toggle("hidden", state.session?.role !== "admin");
   refs.auditCard?.classList.toggle("hidden", state.session?.role !== "admin");
   if (refs.auditPeriod) refs.auditPeriod.value = state.auditPeriod;
   const items = filterAuditByPeriod();
+
+  const servicosItems = items.filter((item) => item.action && (item.action.startsWith("servicos_")));
+  const visitasItems = items.filter((item) => item.action && (item.action.startsWith("visitas_")));
+  const orcamentosItems = items.filter((item) => item.action && (item.action.startsWith("orcamentos_")));
+
   if (refs.auditSummary) {
-    refs.auditSummary.innerHTML = `<p><strong>${items.length}</strong> evento(s) prontos para relatório <strong>${auditPeriodLabel(state.auditPeriod)}</strong>.</p>`;
+    refs.auditSummary.innerHTML = `<p><strong>${items.length}</strong> evento(s) no período <strong>${auditPeriodLabel(state.auditPeriod)}</strong> &mdash; Serviços: <strong>${servicosItems.length}</strong>, Visitas: <strong>${visitasItems.length}</strong>, Orçamentos: <strong>${orcamentosItems.length}</strong>.</p>`;
   }
+
+  renderAuditModuleList(refs.auditServicosList, servicosItems, "Nenhum serviço registrado no período.");
+  renderAuditModuleList(refs.auditVisitasList, visitasItems, "Nenhuma visita registrada no período.");
+  renderAuditModuleList(refs.auditOrcamentosList, orcamentosItems, "Nenhum orçamento registrado no período.");
+}
+
+function buildAuditTableRows(items) {
+  return items.map((item) => {
+    const when = item.timestamp ? new Date(item.timestamp).toLocaleString("pt-BR") : "-";
+    const finalizadoPor = item.finalizadoPor ? esc(item.finalizadoPor) : "-";
+    return `<tr><td>${esc(when)}</td><td>${esc(item.action || "-")}</td><td>${esc(item.actor || item.username || "-")}</td><td>${esc(item.targetId || item.file || item.ip || "-")}</td><td>${finalizadoPor}</td></tr>`;
+  }).join("");
+}
+
+function buildAuditSection(title, items) {
+  if (!items.length) {
+    return `<h2 style="margin:18px 0 6px;font-size:16px;color:#143d73">${esc(title)}</h2><p style="color:#5f7692;font-size:13px">Nenhum registro no período.</p>`;
+  }
+  return `<h2 style="margin:18px 0 6px;font-size:16px;color:#143d73">${esc(title)} <span style="font-size:13px;font-weight:400;color:#5f7692">(${items.length} evento(s))</span></h2><table><thead><tr><th>Data e hora</th><th>Ação</th><th>Usuário</th><th>Alvo</th><th>Finalizado por</th></tr></thead><tbody>${buildAuditTableRows(items)}</tbody></table>`;
 }
 
 function openAuditPdfReport() {
@@ -607,19 +651,22 @@ function openAuditPdfReport() {
     toast("Não há eventos no período selecionado.");
     return;
   }
-  const rows = items.map((item) => {
-    const when = item.timestamp ? new Date(item.timestamp).toLocaleString("pt-BR") : "-";
-    return `<tr><td>${esc(when)}</td><td>${esc(item.action || "-")}</td><td>${esc(item.actor || item.username || "-")}</td><td>${esc(item.targetId || item.file || item.ip || "-")}</td></tr>`;
-  }).join("");
+
+  const servicosItems = items.filter((item) => item.action && item.action.startsWith("servicos_"));
+  const visitasItems = items.filter((item) => item.action && item.action.startsWith("visitas_"));
+  const orcamentosItems = items.filter((item) => item.action && item.action.startsWith("orcamentos_"));
+
+  const sectionsHtml = buildAuditSection("Serviços", servicosItems) + buildAuditSection("Visitas", visitasItems) + buildAuditSection("Orçamentos", orcamentosItems);
+
   const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Auditoria</title><style>
     *{box-sizing:border-box}body{margin:0;background:#f1f6fc;color:#0f2035;font-family:Inter,Arial,sans-serif}
     .page{max-width:1080px;margin:0 auto;padding:24px}.toolbar{display:flex;justify-content:flex-end;margin-bottom:12px}
     .btn{border:0;border-radius:12px;padding:11px 16px;background:linear-gradient(135deg,#143d73,#1b6db0,#46d3d7);color:#fff;font-weight:700}
     .card{background:#fff;border:1px solid #d6e4f3;border-radius:16px;padding:18px;box-shadow:0 12px 24px rgba(20,61,115,.08)}
-    h1{margin:0 0 8px;font-size:24px}.muted{margin:0;color:#5f7692}table{width:100%;border-collapse:collapse;margin-top:14px}
+    h1{margin:0 0 8px;font-size:24px}.muted{margin:0;color:#5f7692}table{width:100%;border-collapse:collapse;margin-top:8px}
     th,td{padding:10px;border-bottom:1px solid #dbe7f4;text-align:left;font-size:13px;vertical-align:top}thead{background:#edf5fd}
     @media print{.toolbar{display:none}.page{padding:0}.card{border:none;box-shadow:none}}
-  </style></head><body><div class="page"><div class="toolbar"><button class="btn" type="button" onclick="window.print()">🖨️ Imprimir PDF</button></div><article class="card"><h1>Relatório de Auditoria</h1><p class="muted">Período: ${auditPeriodLabel(state.auditPeriod)} | Eventos: ${items.length} | Emitido em ${new Date().toLocaleString("pt-BR")}</p><table><thead><tr><th>Data e hora</th><th>Ação</th><th>Usuário</th><th>Alvo</th></tr></thead><tbody>${rows}</tbody></table></article></div></body></html>`;
+  </style></head><body><div class="page"><div class="toolbar"><button class="btn" type="button" onclick="window.print()">🖨️ Imprimir PDF</button></div><article class="card"><h1>Relatório de Auditoria</h1><p class="muted">Período: ${auditPeriodLabel(state.auditPeriod)} | Total de eventos: ${items.length} | Emitido em ${new Date().toLocaleString("pt-BR")}</p>${sectionsHtml}</article></div></body></html>`;
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const tab = window.open(url, "_blank");
