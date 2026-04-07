@@ -659,13 +659,35 @@ function openAuditPdfReport() {
   const sectionsHtml = buildAuditSection("Serviços", servicosItems) + buildAuditSection("Visitas", visitasItems) + buildAuditSection("Orçamentos", orcamentosItems);
 
   const html = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Auditoria</title><style>
-    *{box-sizing:border-box}body{margin:0;background:#f1f6fc;color:#0f2035;font-family:Inter,Arial,sans-serif}
-    .page{max-width:1080px;margin:0 auto;padding:24px}.toolbar{display:flex;justify-content:flex-end;margin-bottom:12px}
-    .btn{border:0;border-radius:12px;padding:11px 16px;background:linear-gradient(135deg,#143d73,#1b6db0,#46d3d7);color:#fff;font-weight:700}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{margin:0;background:#f1f6fc;color:#0f2035;font-family:Inter,Arial,sans-serif;font-size:13px}
+    .page{max-width:1080px;margin:0 auto;padding:24px}
+    .toolbar{display:flex;justify-content:flex-end;margin-bottom:12px}
+    .btn{border:0;border-radius:12px;padding:11px 16px;background:linear-gradient(135deg,#143d73,#1b6db0,#46d3d7);color:#fff;font-weight:700;cursor:pointer}
     .card{background:#fff;border:1px solid #d6e4f3;border-radius:16px;padding:18px;box-shadow:0 12px 24px rgba(20,61,115,.08)}
-    h1{margin:0 0 8px;font-size:24px}.muted{margin:0;color:#5f7692}table{width:100%;border-collapse:collapse;margin-top:8px}
-    th,td{padding:10px;border-bottom:1px solid #dbe7f4;text-align:left;font-size:13px;vertical-align:top}thead{background:#edf5fd}
-    @media print{.toolbar{display:none}.page{padding:0}.card{border:none;box-shadow:none}}
+    h1{margin:0 0 8px;font-size:22px}.muted{margin:0 0 12px;color:#5f7692;font-size:12px}
+    h2{font-size:15px;margin:18px 0 6px;color:#143d73}
+    table{width:100%;max-width:100%;border-collapse:collapse;margin-top:8px;table-layout:fixed}
+    th,td{padding:8px 10px;border-bottom:1px solid #dbe7f4;text-align:left;font-size:12px;vertical-align:top;word-break:break-word;overflow-wrap:break-word}
+    th{font-size:11px;font-weight:700;letter-spacing:.04em}
+    thead{background:#edf5fd}
+    tbody tr{page-break-inside:avoid}
+    img{max-width:100%;height:auto;display:block}
+    @media print{
+      @page{size:A4 portrait;margin:15mm 12mm}
+      *{box-sizing:border-box}
+      html,body{width:100%;background:#fff!important;color:#000!important;font-size:10pt}
+      .toolbar{display:none!important}
+      .page{max-width:100%;padding:0;margin:0}
+      .card{border:none!important;box-shadow:none!important;padding:0;border-radius:0}
+      table{width:100%!important;max-width:100%!important;table-layout:fixed!important;border-collapse:collapse!important}
+      th,td{font-size:9pt!important;padding:6pt 8pt!important;word-break:break-word!important;overflow-wrap:break-word!important}
+      tbody tr{page-break-inside:avoid!important}
+      h1{font-size:16pt!important}
+      h2{font-size:12pt!important;page-break-after:avoid}
+      img{max-width:100%!important;height:auto!important}
+    }
   </style></head><body><div class="page"><div class="toolbar"><button class="btn" type="button" onclick="window.print()">🖨️ Imprimir PDF</button></div><article class="card"><h1>Relatório de Auditoria</h1><p class="muted">Período: ${auditPeriodLabel(state.auditPeriod)} | Total de eventos: ${items.length} | Emitido em ${new Date().toLocaleString("pt-BR")}</p>${sectionsHtml}</article></div></body></html>`;
   const blob = new Blob([html], { type: "text/html;charset=utf-8" });
   const url = URL.createObjectURL(blob);
@@ -783,7 +805,29 @@ function printDoc(title, body, accent = "ORÇAMENTO") {
     .accent-rule{height:8px;margin:18px 0 0;border-radius:999px;background:linear-gradient(90deg,var(--green-deep),var(--green),var(--cyan))}
     .footer{margin-top:18px;display:flex;justify-content:space-between;gap:16px;color:var(--muted);font-size:12px}
     .footer strong{color:var(--green-deep)}
-    @media print{.sheet{padding:0}}
+    img{max-width:100%;height:auto;display:block}
+    @media print{
+      @page{size:A4 portrait;margin:15mm 12mm}
+      *{box-sizing:border-box}
+      html,body{width:100%;background:#fff!important;color:#000!important;font-size:10pt}
+      .sheet{max-width:100%!important;padding:0!important;margin:0!important;background:none!important}
+      .hero{border-radius:0!important;box-shadow:none!important;padding:16pt 14pt!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .brand img{width:56pt!important;height:56pt!important}
+      .brand h1{font-size:18pt!important}
+      .content{border-radius:0!important;box-shadow:none!important;padding:12pt!important;background:none!important}
+      .meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10pt!important}
+      .box,.section{border-radius:0!important;padding:10pt!important;box-shadow:none!important;background:#fff!important}
+      .table-card{border-radius:0!important;overflow:visible!important;border:1px solid var(--line)!important}
+      table{width:100%!important;max-width:100%!important;table-layout:fixed!important;border-collapse:collapse!important}
+      th,td{font-size:9pt!important;padding:5pt 7pt!important;word-break:break-word!important;overflow-wrap:break-word!important}
+      tbody tr{page-break-inside:avoid!important}
+      .split-note{grid-template-columns:1fr!important;gap:10pt!important}
+      .total-card{border-radius:0!important;box-shadow:none!important;padding:12pt!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .total-card strong{font-size:20pt!important}
+      .footer{font-size:8pt!important;flex-wrap:wrap!important;gap:6pt!important}
+      img{max-width:100%!important;height:auto!important}
+      .accent-rule{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    }
   </style><header class="hero"><div class="brand"><img src="${logoUrl}" alt="Logo INFO75"><div><h1>${accent}</h1><p>INFO75 | Tecnologia, redes e fibra óptica</p></div></div><div class="hero-note"><strong>Documento</strong><span>${title}</span><p>Emitido em ${new Date().toLocaleDateString("pt-BR")}</p></div></header><main class="content"><div class="content-top"><div class="doc-chip">INFO75 Documento Oficial</div><div class="doc-title">${title}</div></div>${body}</main><footer class="footer"><span><strong>INFO75</strong> | Documento gerado pela central operacional.</span><span>Aberto para visualização e impressão.</span></footer></article>`;
   const key = `print-doc-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   localStorage.setItem(key, documentMarkup);

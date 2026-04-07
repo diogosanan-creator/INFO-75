@@ -70,18 +70,166 @@
       box-shadow: 0 18px 36px rgba(17, 32, 51, 0.08);
     }
 
+    table {
+      width: 100%;
+      max-width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    th, td {
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+
+    tbody tr {
+      page-break-inside: avoid;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
     @media print {
-      .print-toolbar {
-        display: none;
+      @page {
+        size: A4 portrait;
+        margin: 15mm 12mm;
       }
 
-      body {
-        background: #fff;
+      * {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        width: 100%;
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 10pt;
+      }
+
+      .print-toolbar {
+        display: none !important;
       }
 
       .print-shell {
-        padding: 0;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
       }
+
+      /* Sheet wrapper from printDoc() */
+      .sheet {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: none !important;
+      }
+
+      /* Hero banner — preserve gradient colours */
+      .hero {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 14pt 12pt !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .brand img {
+        width: 52pt !important;
+        height: 52pt !important;
+      }
+
+      .brand h1 {
+        font-size: 18pt !important;
+      }
+
+      /* Content area */
+      .content {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 10pt !important;
+        background: none !important;
+      }
+
+      .meta-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 8pt !important;
+      }
+
+      .box, .section {
+        border-radius: 0 !important;
+        padding: 8pt !important;
+        box-shadow: none !important;
+        background: #fff !important;
+      }
+
+      /* Tables */
+      .table-card {
+        border-radius: 0 !important;
+        overflow: visible !important;
+      }
+
+      table {
+        width: 100% !important;
+        max-width: 100% !important;
+        table-layout: fixed !important;
+        border-collapse: collapse !important;
+      }
+
+      th, td {
+        font-size: 9pt !important;
+        padding: 5pt 6pt !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+      }
+
+      tbody tr {
+        page-break-inside: avoid !important;
+      }
+
+      /* Split layout — stack vertically on print */
+      .split-note {
+        grid-template-columns: 1fr !important;
+        gap: 8pt !important;
+      }
+
+      /* Total card — preserve gradient */
+      .total-card {
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 10pt !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .total-card strong {
+        font-size: 18pt !important;
+      }
+
+      /* Accent rule — preserve gradient */
+      .accent-rule {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Footer */
+      .footer {
+        font-size: 8pt !important;
+        flex-wrap: wrap !important;
+        gap: 4pt !important;
+      }
+
+      /* Images from visit photos */
+      img {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+
+      h1 { font-size: 16pt !important; }
+      h2 { font-size: 12pt !important; page-break-after: avoid; }
+      h3 { font-size: 10pt !important; page-break-after: avoid; }
     }
   </style>
 </head>
