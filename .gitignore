@@ -1,0 +1,25 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Runtime data (local-only)
+data/
+*.log
+logs/
+*.pid
+
+# Dependencies
+node_modules/
+web/node_modules/
+
+# Builds
+dist/
+web/dist/
+coverage/
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
