@@ -97,8 +97,8 @@
       "nome": "Administrador",
       "username": "admin",
       "role": "admin",
-      "passwordHash": "46a5491285e95c393ef0156e42ca7aaed6127bd0f46b81cea2dacb2054b0beeb2ee09d7eac6d3d79f2e2575b0bcf49d5e4fdf51bacdb3d63feddc6d5635d506d",
-      "passwordSalt": "07381a74bae5880260df3403fe8b259f",
+      "passwordHash": "",
+      "passwordSalt": "",
       "createdAt": "2026-03-27T02:03:38.306Z",
       "permissions": {
         "servicos": {
