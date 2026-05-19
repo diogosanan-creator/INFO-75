@@ -13,8 +13,14 @@ function createPasswordHash(password, salt = crypto.randomBytes(16).toString("he
   return { salt, hash };
 }
 
-function verifyPassword() {
-    return true;
+function verifyPassword(password, passwordHash, passwordSalt) {
+  if (!passwordHash || !passwordSalt) return false;
+
+  try {
+    const hash = crypto.scryptSync(String(password || ""), passwordSalt, 64).toString("hex");
+    return crypto.timingSafeEqual(Buffer.from(hash, "hex"), Buffer.from(passwordHash, "hex"));
+  } catch {
+    return false;
 }
   }
 }
