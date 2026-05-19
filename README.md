@@ -5,7 +5,7 @@ Aplicacao web local para operacao tecnica da INFO75, com login por sessao HTTP, 
 ## Execucao local
 
 1. Abra o terminal na pasta do projeto.
-2. Copie `.env.example` para `.env` e defina `SANAN_ADMIN_PASSWORD` se estiver criando uma base nova.
+2. Copie `.env.example` para `.env` e defina `SANAN_ADMIN_PASSWORD` para criar ou redefinir a senha do administrador.
 3. Rode `node server.js`.
 4. Acesse [http://127.0.0.1:3000](http://127.0.0.1:3000).
 
@@ -17,9 +17,9 @@ Aplicacao web local para operacao tecnica da INFO75, com login por sessao HTTP, 
 
 ## Login e recuperacao
 
-- Em bases ja existentes, vale a senha gravada em `data/db.json`.
-- Neste projeto analisado, o usuario `admin` continua valido com a senha ja existente no banco atual.
-- Para forcar redefinicao local do admin em ambiente controlado, use `SANAN_ADMIN_PASSWORD` junto com `SANAN_ADMIN_PASSWORD_RESET_ON_START=true` e reinicie o servidor.
+- O usuario de administracao e `admin`.
+- Quando `SANAN_ADMIN_PASSWORD` estiver definida, a senha do administrador sera sincronizada ao iniciar o servidor, mesmo em bases ja existentes.
+- Para impedir essa sincronizacao automatica, defina `SANAN_ADMIN_PASSWORD_RESET_ON_START=false`.
 
 ## Melhorias aplicadas
 
