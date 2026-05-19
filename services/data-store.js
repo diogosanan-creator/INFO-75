@@ -2,7 +2,7 @@
 const path = require("node:path");
 const crypto = require("node:crypto");
 const { DATA_DIR, DB_PATH, BACKUP_DIR } = require("./config");
-const { createPasswordHash, normalizeUsername } = require("./auth");
+const { createPasswordHash, normalizeUsername, verifyPassword } = require("./auth");
 
 const MODULE_KEYS = ["servicos", "visitas", "orcamento", "financeiro", "estoque", "relatorio", "clientes", "usuarios"];
 
@@ -168,11 +168,12 @@ function backupCorruptedDb() {
 
 function maybeSyncAdminPassword(db) {
   const requestedPassword = String(process.env.SANAN_ADMIN_PASSWORD || "").trim();
-  const resetOnStart = String(process.env.SANAN_ADMIN_PASSWORD_RESET_ON_START || "false").toLowerCase() === "true";
+  const resetOnStart = String(process.env.SANAN_ADMIN_PASSWORD_RESET_ON_START || "true").toLowerCase() !== "false";
   if (!requestedPassword || !resetOnStart) return db;
 
   const admin = db.users.find((user) => user.role === "admin" && user.username === "admin");
   if (!admin) return db;
+  if (verifyPassword(requestedPassword, admin.passwordHash, admin.passwordSalt)) return db;
 
   const { hash, salt } = createPasswordHash(requestedPassword);
   admin.passwordHash = hash;

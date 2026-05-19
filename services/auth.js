@@ -21,7 +21,6 @@ function verifyPassword(password, passwordHash, passwordSalt) {
     return crypto.timingSafeEqual(Buffer.from(hash, "hex"), Buffer.from(passwordHash, "hex"));
   } catch {
     return false;
-}
   }
 }
 

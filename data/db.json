@@ -2,7 +2,7 @@
   "meta": {
     "version": 1,
     "createdAt": "2026-03-27T02:03:38.305Z",
-    "hardenedAt": "2026-04-03T03:24:24.535Z"
+    "hardenedAt": "2026-05-19T14:15:14.406Z"
   },
   "users": [
     {
@@ -97,8 +97,8 @@
       "nome": "Administrador",
       "username": "admin",
       "role": "admin",
-      "passwordHash": "",
-      "passwordSalt": "",
+      "passwordHash": "e8008a248225b9fe02dbbf51345a6fa6dd9b7713fb80fd5d5426ec5259dfd7db76fc8e8e2e45c50b19910beff3d0b4ede7bc192a660be11b25b0f976d7d2b540",
+      "passwordSalt": "a11e363c2d2f16b86084e668ea673d9c",
       "createdAt": "2026-03-27T02:03:38.306Z",
       "permissions": {
         "servicos": {
@@ -133,7 +133,8 @@
           "view": true,
           "edit": true
         }
-      }
+      },
+      "updatedAt": "2026-05-19T14:15:14.406Z"
     }
   ],
   "clientes": [
